@@ -132,6 +132,7 @@ class FifteenPuzzle {
         playPuzzle() {
                 this.init();
                 this.display();
+
                 console.log("퍼즐이 초기화 되었습니다.");
                 this.shuffle(100);
                 const startTime = new Date();
@@ -139,9 +140,7 @@ class FifteenPuzzle {
                 const currentTime = new Date();
                 const elapsedTime = currentTime - startTime;
                 console.time('Elapsed Puzzle Time');
-                while(!this.isDone()) {
-                        this.shuffle(1);
-                }
+
                 console.timeEnd('Elapsed Puzzle Time');
         }
 

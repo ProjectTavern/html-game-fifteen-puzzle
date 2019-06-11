@@ -15,3 +15,57 @@
 img {
         display: block;
 }
+
+.image_pieces .a {
+        background-position: 0 0;
+}
+.image_pieces .b {
+        background-position: -50px 0;
+}
+.image_pieces .c {
+        background-position: -100px 0;
+}
+.image_pieces .d {
+        background-position: -150px 0;
+}
+.image_pieces .e {
+        background-position: 0 -50px;
+}
+.image_pieces .f {
+        background-position: -50px -50px;
+}
+.image_pieces .g {
+        background-position: -100px -50px;
+}
+.image_pieces .h {
+        background-position: -150px -50px;
+}
+.image_pieces .i {
+        background-position: 0 -100px;
+}
+.image_pieces .j {
+        background-position: -50px -100px;
+}
+.image_pieces .k {
+        background-position: -100px -100px;
+}
+.image_pieces .l {
+        background-position: -150px -100px;
+}
+.image_pieces .m {
+        background-position: 0 -150px;
+}
+.image_pieces .n {
+        background-position: -50px -150px;
+}
+.image_pieces .o {
+        background-position: -100px -150px;
+}
+.image_pieces .p {
+        background-position: -150px -150px;
+}
+.user_point {
+        background: #e5e5e5;
+        width: 50px;
+        height: 50px;
+}

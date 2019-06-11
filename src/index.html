@@ -2,61 +2,175 @@
 <html>
 <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
         <title>Fifteen Puzzle</title>
         <link rel="stylesheet" href="./css/stylesheet.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <style>
+                .image_pieces li {
+                        width: 50px;
+                        height: 50px;
+                        background: url('./assets/images/k.jpeg') no-repeat;
+                        background-size: 200px 200px;
+                }
+        </style>
 </head>
 <body>
 <div id="game">
         <ul class="image_pieces">
-                <li class="1">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="2">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="3">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="4">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="5">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="6">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="7">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="8">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="9">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="10">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="11">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="12">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="13">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="14">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="15">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
-                <li class="0">
-                        <img src="./assets/images/k.jpeg" alt="IZONE">
-                </li>
+                <li class="a"></li>
+                <li class="b"></li>
+                <li class="c"></li>
+                <li class="d"></li>
+                <li class="e"></li>
+                <li class="f"></li>
+                <li class="g"></li>
+                <li class="h"></li>
+                <li class="i"></li>
+                <li class="j"></li>
+                <li class="k"></li>
+                <li class="l"></li>
+                <li class="m"></li>
+                <li class="n"></li>
+                <li class="o"></li>
+                <li class="p"><div class="user_point"></div></li>
         </ul>
 </div>
+<script src="js/index.js"></script>
+<script>
+
+        const list = document.querySelector('.image_pieces');
+        const listItem = list.querySelectorAll('li');
+        const puzzleItem = {};
+        listItem.forEach((li, index) => {
+                puzzleItem[++index] = li;
+        });
+        puzzleItem[0] = puzzleItem[16];
+
+        const fifteenPuzzle = new FifteenPuzzle();
+
+        fifteenPuzzle.playPuzzle();
+
+
+        function shuffle(number = 1) {
+                fifteenPuzzle.shuffle(number);
+                display();
+        }
+
+        function display() {
+                const {map} = fifteenPuzzle;
+                const result = map.reduce((a, b) => a.concat(b));
+
+                console.log(result);
+                const puzzleMapList = result.map(index => {
+                        return puzzleItem[index];
+                });
+                console.log(puzzleMapList);
+
+                list.innerHTML = '';
+                puzzleMapList.forEach(li => {
+                        list.appendChild(li);
+                });
+        }
+
+        shuffle(100);
+
+        addEventListenerTo(list);
+
+        function addEventListenerTo(element) {
+                $(element).on("touchstart", startTouch);
+                $(element).on("touchmove", moveTouch);
+                $(element).on("touchmove", function(event) {
+                        const touch = event.originalEvent.touches[0];
+                        highlightHoveredObject(touch.clientX, touch.clientY);
+                });
+                let data = '';
+                // Swipe Up / Down / Left / Right
+                var initialX = null;
+                var initialY = null;
+                var moveEnd = null;
+                function startTouch(e) {
+                        initialX = e.touches[0].clientX;
+                        initialY = e.touches[0].clientY;
+                        moveEnd = false;
+                }
+
+                function moveTouch(e) {
+                        const currentElement = e.target;
+                        if(currentElement.nodeName !== 'LI') {
+                                return;
+                        }
+
+                        if (initialX === null) {
+                                return;
+                        }
+
+                        if (initialY === null) {
+                                return;
+                        }
+
+
+                        var currentX = e.touches[0].clientX;
+                        var currentY = e.touches[0].clientY;
+
+                        var diffX = initialX - currentX;
+                        var diffY = initialY - currentY;
+
+                        if (Math.abs(diffX) > Math.abs(diffY)) {
+                                // sliding horizontally
+                                if (diffX > 0) {
+                                        // swiped left
+                                        console.log("swiped left");
+                                        data = "Left";
+                                } else {
+                                        // swiped right
+                                        console.log("swiped right");
+                                        data = "Right";
+                                }
+                        } else {
+                                // sliding vertically
+                                if (diffY > 0) {
+                                        // swiped up
+                                        console.log("swiped up");
+                                        data = "Up";
+                                } else {
+                                        // swiped down
+                                        console.log("swiped down");
+                                        data = "Down";
+                                }
+                        }
+
+                        initialX = null;
+                        initialY = null;
+
+                        e.preventDefault();
+                }
+
+                function highlightHoveredObject(x, y) {
+                        if(moveEnd) {
+                                return;
+                        }
+                        $('li').each(function() {
+                                // check if is inside boundaries
+                                if (!(
+                                        x <= $(this).offset().left || x >= $(this).offset().left + $(this).outerWidth() ||
+                                        y <= $(this).offset().top  || y >= $(this).offset().top + $(this).outerHeight()
+                                )) {
+                                        if(this.className === 'p' && data !== ''){
+                                                fifteenPuzzle.move(data);
+                                                fifteenPuzzle.display();
+                                                moveEnd = true;
+                                                display();
+                                        }
+                                }
+                        });
+                }
+
+
+
+
+        }
+
+</script>
 </body>
 </html>

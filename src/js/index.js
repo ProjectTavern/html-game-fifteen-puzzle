@@ -134,18 +134,14 @@ class FifteenPuzzle {
                 this.display();
 
                 console.log("퍼즐이 초기화 되었습니다.");
-                this.shuffle(100);
-                const startTime = new Date();
-
-                const currentTime = new Date();
-                const elapsedTime = currentTime - startTime;
-                console.time('Elapsed Puzzle Time');
-
-                console.timeEnd('Elapsed Puzzle Time');
+                // this.shuffle(100);
+                // const startTime = new Date();
+                //
+                // const currentTime = new Date();
+                // const elapsedTime = currentTime - startTime;
+                // console.time('Elapsed Puzzle Time');
+                //
+                // console.timeEnd('Elapsed Puzzle Time');
         }
 
 }
-
-
-const fifteenPuzzle = new FifteenPuzzle();
-fifteenPuzzle.playPuzzle();

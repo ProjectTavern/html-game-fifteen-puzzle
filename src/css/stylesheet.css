@@ -11,6 +11,8 @@
         height: 50px;
         overflow: hidden;
         float:left;
+        background: url('../assets/images/lion.jpeg') no-repeat;
+        background-size: 200px 200px;
 }
 img {
         display: block;

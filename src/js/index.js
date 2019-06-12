@@ -1,16 +1,3 @@
-const Direction = {
-        Right: 1,
-        Left: 2,
-        Up: 3,
-        Down: 4,
-        properties: {
-                1: "Right",
-                2: "Left",
-                3: "Up",
-                4: "Down",
-        },
-};
-
 class FifteenPuzzle {
 
         /**
@@ -30,6 +17,18 @@ class FifteenPuzzle {
                 this.position = {
                         x: 0,
                         y: 0
+                };
+                this.direction = {
+                        Right: 1,
+                        Left: 2,
+                        Up: 3,
+                        Down: 4,
+                        properties: {
+                                1: "Right",
+                                2: "Left",
+                                3: "Up",
+                                4: "Down",
+                        },
                 };
         }
 
@@ -63,7 +62,7 @@ class FifteenPuzzle {
         shuffle(shuffleCount) {
                 for (let index = 0; index < shuffleCount; index++) {
                         const targetDirection = Math.floor(Math.random() * 4 + 1);
-                        const key = Direction.properties[targetDirection];
+                        const key = this.direction.properties[targetDirection];
                         console.log(key);
                         if (!this.move(key)) {
                                 index--;
